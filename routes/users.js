@@ -1,12 +1,25 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+const login = require("../model");
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.post("/login", (req, res, next) => {
+  const { name, password } = req.body;
+  login.login(name, password).then(ress => {
+    res.json(ress);
+  });
 });
-router.get('/login', function(req, res, next) {
-  res.send('respond with a resource');
+router.post("/register", (req, res, next) => {
+  const { name, password } = req.body;
+  login.register(name, password).then(ress => {
+    res.json(ress);
+  });
+});
+router.get("/checkuser", (req, res, next) => {
+  const { name } = req.query;
+  login.checkUser(name).then(ress => {
+    res.json(ress);
+  });
 });
 
 module.exports = router;
