@@ -63,6 +63,7 @@ class Login {
               message: "登录成功",
               data: {
                 name: res.name,
+                id: id,
                 token: token
               }
             });
@@ -78,6 +79,17 @@ class Login {
             message: "用户不存在"
           });
         }
+      });
+    });
+  }
+  update(name, id) {
+    return new Promise(reslove => {
+      UserSchema.update({ _id: id }, { $set: { name: name } }, (err, res) => {
+        if (err) return;
+        reslove({
+          code: 1,
+          message: "修改成功"
+        });
       });
     });
   }
