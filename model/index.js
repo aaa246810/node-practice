@@ -23,7 +23,6 @@ class Login {
         } else {
           user.save((err, res) => {
             if (err) {
-              console.log("Error:" + err);
               return null;
             }
             reslove({

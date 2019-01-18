@@ -38,29 +38,30 @@ app.all("*", function(req, res, next) {
   if (req.method == "OPTIONS") res.send(200);
   else next();
 });
-// app.all("*", (req, res, next) => {
-//   if (req.path.indexOf("/users") > -1) {
-//     next();
-//   } else {
-//     if (req.headers.token) {
-//       if (verifyToken(req.headers.token)) {
-//         next();
-//       } else {
-//         res.status(401);
-//         res.json({
-//           code: -1,
-//           message: "请登录"
-//         });
-//       }
-//     } else {
-//       res.status(401);
-//       res.json({
-//         code: -1,
-//         message: "请登录"
-//       });
-//     }
-//   }
-// });
+app.all("*", (req, res, next) => {
+  if (req.path.indexOf("/users") > -1) {
+    next();
+  } else {
+    console.log(req);
+    if (req.headers.authorization) {
+      if (verifyToken(req.headers.authorization.split(" ")[1])) {
+        next();
+      } else {
+        res.status(401);
+        res.json({
+          code: -1,
+          message: "请登录"
+        });
+      }
+    } else {
+      res.status(401);
+      res.json({
+        code: -1,
+        message: "请登录"
+      });
+    }
+  }
+});
 // view engine setup
 
 app.use(logger("dev"));

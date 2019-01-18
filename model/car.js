@@ -6,10 +6,12 @@ class Car {
     return new Promise(reslove => {
       CarSchema.findOne({ _id: id }).exec((err, res) => {
         if (err) return;
-        console.log("res", res);
         reslove({ code: 1, data: res });
       });
     });
+  }
+  addStep(id, des, date) {
+    return new Promise(reslove => {});
   }
   queryList(page, limit, id) {
     return new Promise(reslove => {
@@ -21,9 +23,7 @@ class Car {
         .skip(page)
         .limit(limit)
         .exec((err, res) => {
-          console.log(err);
           if (err) return;
-          console.log(res);
           if (res) {
             reslove({
               code: 1,

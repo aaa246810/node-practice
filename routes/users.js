@@ -4,6 +4,7 @@ const login = require("../model");
 
 /* GET users listing. */
 router.post("/login", (req, res, next) => {
+  console.log(req);
   const { name, password } = req.body;
   login.login(name, password).then(ress => {
     res.json(ress);
